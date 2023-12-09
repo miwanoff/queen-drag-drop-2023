@@ -42,7 +42,7 @@ function drop(event) {
   let data = event.dataTransfer.getData("text");
 
   event.target.appendChild(document.getElementById(data));
-  //play(cards, data);
+  play(cards, data);
 }
 
 function showCards(cards) {
@@ -69,46 +69,59 @@ function addEventCardList() {
 }
 
 function play(cards, elId) {
-//   if (!isGame) return;
-//   try {
-//     if (myMove(elId)) return;
+  if (!isGame) return;
+  try {
+    if (myMove(elId)) return;
     setTimeout(computerMove, 300);
-//   } catch (ex) {
-//     info.innerHTML = ex.message;
-//   }
+  } catch (ex) {
+    info.innerHTML = ex.message;
+  }
 }
 
 function removeCard(number) {
-    playedCards.push(cards[number]);
-    cards.splice(number, 1);
-    cardsField.innerHTML = cards;
-    generateCards(cards, realCardsField, "");
-    generateCards(playedCards, playedCardsField, "p");
-    addEventCardList();
+  playedCards.push(cards[number]);
+  cards.splice(number, 1);
+  cardsField.innerHTML = cards;
+  generateCards(cards, realCardsField, "");
+  generateCards(playedCards, playedCardsField, "p");
+  addEventCardList();
+}
+
+function myMove(elId) {
+  isGame = false;
+  let b = false;
+  number = Number(elId.substr(3));
+  if (number > cards.length || number < 0) {
+    throw new Error("Input error! Try again!");
   }
-  
+  //   if (checkWin("You ", cards[number])) {
+  //     b = true;
+  //   } else {
+  setTimeout(removeCard.bind(null, number), 200);
+  isGame = true;
+  // }
+  return b;
+}
 
 function computerMove() {
-    isGame = false;
-    let b = false;
-    number = Math.floor(Math.random() * cards.length);
-  
-    console.log(number);
-  
-    let computerCard = document.getElementById(`rc_${number}`);
-    console.log(computerCard.id);
-  
-  
-    // if (checkWin("I ", cards[number])) {
-    //   b = true;
-    //   return b;
-    // } else {
-      setTimeout(removeCard.bind(this, number), 200);
-      isGame = true;
+  isGame = false;
+  let b = false;
+  number = Math.floor(Math.random() * cards.length);
+
+  console.log(number);
+
+  let computerCard = document.getElementById(`rc_${number}`);
+  console.log(computerCard.id);
+
+  // if (checkWin("I ", cards[number])) {
+  //   b = true;
+  //   return b;
+  // } else {
+  setTimeout(removeCard.bind(this, number), 200);
+  isGame = true;
   //  }
-    return b;
-  }
-  
+  return b;
+}
 
 window.onload = function () {
   generateCards(cards, realCardsField, "");
