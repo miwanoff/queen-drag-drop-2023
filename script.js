@@ -56,9 +56,14 @@ function generateCards(cards, cardsF, s) {
   }
 }
 
+function newPlay() {
+  location.reload();
+  return false;
+}
+
 window.onload = function () {
-    generateCards(cards, realCardsField, "");
-    // addEventCardList();
-    // rel.addEventListener("click", newPlay);
-  };
-  
+  generateCards(cards, realCardsField, "");
+  // addEventCardList();
+   rel.addEventListener("click", newPlay);
+
+};
