@@ -61,9 +61,57 @@ function newPlay() {
   return false;
 }
 
+function addEventCardList() {
+  let card_elements = document.getElementsByClassName("card");
+  for (let i = 0; i < card_elements.length; i++) {
+    card_elements[i].addEventListener("click", play);
+  }
+}
+
+function play(cards, elId) {
+//   if (!isGame) return;
+//   try {
+//     if (myMove(elId)) return;
+    setTimeout(computerMove, 300);
+//   } catch (ex) {
+//     info.innerHTML = ex.message;
+//   }
+}
+
+function removeCard(number) {
+    playedCards.push(cards[number]);
+    cards.splice(number, 1);
+    cardsField.innerHTML = cards;
+    generateCards(cards, realCardsField, "");
+    generateCards(playedCards, playedCardsField, "p");
+    addEventCardList();
+  }
+  
+
+function computerMove() {
+    isGame = false;
+    let b = false;
+    number = Math.floor(Math.random() * cards.length);
+  
+    console.log(number);
+  
+    let computerCard = document.getElementById(`rc_${number}`);
+    console.log(computerCard.id);
+  
+  
+    // if (checkWin("I ", cards[number])) {
+    //   b = true;
+    //   return b;
+    // } else {
+      setTimeout(removeCard.bind(this, number), 200);
+      isGame = true;
+  //  }
+    return b;
+  }
+  
+
 window.onload = function () {
   generateCards(cards, realCardsField, "");
-  // addEventCardList();
-   rel.addEventListener("click", newPlay);
-
+  addEventCardList();
+  rel.addEventListener("click", newPlay);
 };
