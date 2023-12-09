@@ -57,7 +57,7 @@ function generateCards(cards, cardsF, s) {
 }
 
 window.onload = function () {
-    generateCards(cards, playedCardsField, "");
+    generateCards(cards, realCardsField, "");
     // addEventCardList();
     // rel.addEventListener("click", newPlay);
   };
